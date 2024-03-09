@@ -33,28 +33,16 @@ class Zed:
         self.T = (R, [0,0,0])
 
     def print(self):
-        print('Zed params')
-        print('f:', self.fx, self.fy)
-        print('c:', self.cx, self.cy)
-        print('height:', self.h)
-        print('width:', self.w)
-        print('horizontal FOV:', math.degrees(self.xFov), "deg")
-        print('vertical FOV:', math.degrees(self.yFov), "deg")
+        print('----Zed----')
+        print('f: ', self.fx, self.fy, ' | c: ', self.cx, self.cy)
+        print('h:', self.h, " | w: ", self.w)
+        print('FOV:', math.degrees(self.xFov), math.degrees(self.yFov))
         print('T:', self.T)
 
     def get_point_cloud(self, folder, idx):
         depth_data_path = os.path.join(folder, 'depth{}.tif').format(idx)
         depth_data = cv2.imread(depth_data_path, cv2.IMREAD_UNCHANGED).astype(np.float32)
 
-        # color_data_path = os.path.join(folder, 'color{}.png').format(idx)
-        # color_data = cv2.imread(color_data_path)
-
-        # for klampt.robotsim.PointCloud
-        # pcd = image_to_points(depth_data, color_data, self.xfov, self.yfov, \
-        #                       depth_scale=4000.0/0xffff, points_format='PointCloud')
-        # return pcd
-
-        # for open3d.geometry.PointCloud
         points = image_to_points(depth_data, None, self.xFov, self.yFov, depth_scale=4000.0/0xffff)
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(points)
@@ -73,11 +61,6 @@ class Lidar:
         lidar_data_path = os.path.join(folder, 'lidar{}.npz').format(idx)
         lidar_data = np.load(lidar_data_path)['arr_0']
 
-        # for klampt.robotsim.PointCloud
-        # pcd = numpy_convert.from_numpy(lidar_data, 'PointCloud')
-        # return pcd
-
-        # for open3d.geometry.PointCloud
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(lidar_data)
         return pcd
@@ -111,6 +94,7 @@ def run(folder, idx):
     print(T_lidar_zed)
 
 
-def main():
-    calib_data_folder = settings.get('calibration.data1')
-    run(calib_data_folder, 16)
+path = input("enter data path")
+index = int(input("enter data index"))
+print(path)
+run(path, index)
