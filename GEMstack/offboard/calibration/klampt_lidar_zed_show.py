@@ -11,20 +11,14 @@ import os
 import numpy as np
 import math
 import time
-import pickle
-from ...utils import settings
 
 #uncalibrated values -- TODO: load these from a calibration file
-#with open("GEMstack/knowledge/calibration/values.pickle", 'rb') as f:
-#		camera_info = pickle.load(f)
-camera_info = settings.get('camera_info')
-		
-# zed_K = np.array([[550, 0.0, 640],
-#                 [0.0, 550, 360],
-#                 [0.0, 0.0, 1.0]])
-zed_intrinsics = [camera_info['fx'], camera_info['fy'], camera_info['cx'],camera_info['cy']]
-zed_w = camera_info['width']
-zed_h = camera_info['height']
+zed_K = np.array([[550, 0.0, 640],
+                [0.0, 550, 360],
+                [0.0, 0.0, 1.0]])
+zed_intrinsics = [zed_K[0,0],zed_K[1,1],zed_K[0,2],zed_K[1,2]]
+zed_w = 1280
+zed_h = 720
 
 
 def main(folder):

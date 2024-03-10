@@ -37,13 +37,6 @@ control:
 simulator:
     dt: 0.01
     real_time_multiplier: 1.0    # make the simulator run faster than real time by making this > 1
-
-pedestrian_detection:
-    model: !relative_path "../../knowledge/detection/yolov8n.pt"   #the !relative_path directive finds a file in a relative location to this file
-    rate: 5.0
-
-longitudinal_planning:
-    delta_time: 0.05
     gnss_emulator: 
         dt: 0.1    #10Hz
         #position_noise: 0.1  #10cm noise
@@ -51,11 +44,3 @@ longitudinal_planning:
         #velocity_noise:
         #    constant: 0.04  #4cm/s noise
         #    linear: 0.02    #2% noise
-
-camera_info:
-    fx: 527.1143188476562
-    fy: 527.1143188476562
-    cx: 616.244873046875
-    cy: 359.211669921875
-    height: 720
-    width: 1280
