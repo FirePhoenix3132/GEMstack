@@ -74,7 +74,6 @@ class GNSSStateEstimator(Component):
 
 
 class OmniscientStateEstimator(Component):
-    """A state estimator used for the simulator which provides perfect state information"""
     def __init__(self, vehicle_interface : GEMInterface):
         self.vehicle_interface = vehicle_interface
         if 'gnss' not in vehicle_interface.sensors():
@@ -97,7 +96,3 @@ class OmniscientStateEstimator(Component):
 
     def update(self) -> VehicleState:
         return self.vehicle_state
-    
-
-#alias, will be deprecated by end of February
-FakeStateEstimator = OmniscientStateEstimator
